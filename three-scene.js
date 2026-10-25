@@ -28,8 +28,8 @@ for(const x of [-.42,.42])cylinder(monkey,x,.53,0,.13,.16,.9,brown);
 const tail=new THREE.Mesh(new THREE.TorusGeometry(.62,.105,8,40,Math.PI*1.65),brown);tail.position.set(.78,1.3,-.1);tail.rotation.z=-.2;monkey.add(tail);
 const oldDraw=window.draw||draw;
 function draw3d(t,duration,scenes,title){const w=canvas.width,h=canvas.height;renderer.setSize(w,h,false);camera.aspect=w/h;camera.position.set(Math.sin(t*.18)*1.2, h>w?5.2:4.3,h>w?19:14);camera.lookAt(0,1.55,0);camera.updateProjectionMatrix();elephant.position.y=Math.sin(t*3)*.1;elephant.rotation.y=Math.sin(t*.7)*.14;monkey.position.y=Math.sin(t*4+.5)*.14;monkey.rotation.y=Math.sin(t*.9)*.25;renderer.render(scene,camera);c.drawImage(renderer.domElement,0,0,w,h);const n=Math.min(scenes.length-1,Math.floor(Math.min(.999,t/duration)*scenes.length));c.fillStyle="#152544d9";c.fillRect(0,0,w,Math.max(60,h*.1));c.fillStyle="white";c.font="bold "+Math.max(19,Math.floor(w/31))+"px system-ui";c.textAlign="center";c.fillText(title.slice(0,42),w/2,Math.max(38,h*.065));c.fillStyle="#122344e8";c.fillRect(0,h-125,w,125);const lines=wrap(scenes[n],Math.max(22,Math.floor(w/21)));c.font="bold "+Math.max(16,Math.floor(w/44))+"px system-ui";lines.slice(0,3).forEach((s,i)=>c.fillText(s,w/2,h-88+i*30))}
-window.draw=draw3d;
+window.renderCartoon3D=draw3d;
 const originalGenerate=document.getElementById("generate").onclick;
-document.getElementById("generate").onclick=function(){const original=window.draw;try{draw=draw3d;originalGenerate()}catch(e){status.textContent="3D error: "+e.message;console.error(e)}};
+document.getElementById("generate").onclick=function(){try{originalGenerate()}catch(e){status.textContent="3D error: "+e.message;console.error(e)}};
 draw3d(0,30,["Meet our new 3D jungle friends!"],"Kids Cartoon Factory 3D");
 })();
